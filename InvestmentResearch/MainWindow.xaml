@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="InvestmentResearch.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:InvestmentResearch.Models"
+    Title="Investment Research">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <NavigationView
+        x:Name="NavView"
+        IsBackButtonVisible="Auto"
+        IsSettingsVisible="True"
+        PaneTitle="Investment Research"
+        BackRequested="NavView_BackRequested"
+        SelectionChanged="NavView_SelectionChanged">
+
+        <NavigationView.AutoSuggestBox>
+            <AutoSuggestBox
+                x:Name="SearchBox"
+                PlaceholderText="Search symbol or company"
+                QueryIcon="Find"
+                TextMemberPath="Symbol"
+                TextChanged="SearchBox_TextChanged"
+                QuerySubmitted="SearchBox_QuerySubmitted">
+                <AutoSuggestBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:SymbolMatch">
+                        <StackPanel Padding="0,4">
+                            <TextBlock Text="{x:Bind Symbol}" FontWeight="SemiBold" />
+                            <TextBlock
+                                Text="{x:Bind Description}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </AutoSuggestBox.ItemTemplate>
+            </AutoSuggestBox>
+        </NavigationView.AutoSuggestBox>
+
+        <NavigationView.MenuItems>
+            <NavigationViewItem x:Name="WatchlistNavItem" Content="Watchlist" Tag="watchlist">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="List" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+
+        <Frame x:Name="ContentFrame" Navigated="ContentFrame_Navigated" />
+    </NavigationView>
+</Window>

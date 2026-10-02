@@ -1,0 +1,13 @@
+# Visual Studio / .NET
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+*.rsuser
+AppPackages/
+BundleArtifacts/
+packages/
+TestResults/
+*.binlog
